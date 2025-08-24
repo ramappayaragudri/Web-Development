@@ -1,0 +1,2555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Products - E-Shop</title>
+  <meta name="description" content="Discover top products at E-Shop. Browse electronics, fashion, and more with amazing deals.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body {
+      animation: fadeIn 1s ease-out;
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .page-header p {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
+    
+    /* Search Box Styles */
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      padding: 0 15px;
+    }
+
+    .search-box {
+      display: flex;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-radius: 30px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      background-color: white;
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background-color: transparent;
+    }
+
+    .search-box button {
+      padding: 0 25px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-box button:hover {
+      background-color: #2980b9;
+    }
+
+    .product-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+      padding: 0 15px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border: 1px solid #e0e0e0;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border-color: #3498db;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-card .product-info {
+      padding: 15px;
+      background-color: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .product-card p {
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+      flex-grow: 1;
+    }
+
+    /* Star Rating Styles */
+    .rating {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .stars {
+      color: #f39c12;
+      font-size: 16px;
+      margin-right: 5px;
+    }
+
+    .rating-count {
+      font-size: 14px;
+      color: #95a5a6;
+    }
+
+    .product-card .price {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #e74c3c;
+      margin: 10px 0;
+    }
+
+    .product-card .btn {
+      margin-top: 15px;
+      border-radius: 25px;
+      padding: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+    }
+
+    .product-card .btn-add {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .product-card .btn-add:hover {
+      background-color: #27ae60;
+    }
+
+    .product-card .btn-remove {
+      background-color: #e74c3c;
+      color: white;
+      display: none;
+    }
+
+    .product-card .btn-remove:hover {
+      background-color: #c0392b;
+    }
+
+    .product-card .quantity-controls {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 15px;
+      background-color: #f8f9fa;
+      border-radius: 25px;
+      padding: 5px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .product-card .quantity-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #ecf0f1;
+      border: 1px solid #bdc3c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #2c3e50;
+    }
+
+    .product-card .quantity-btn:hover {
+      background-color: #bdc3c7;
+      color: white;
+    }
+
+    .product-card .quantity-display {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .quick-view-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(52, 152, 219, 0.9);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .quick-view-btn:hover {
+      background-color: rgba(41, 128, 185, 0.9);
+    }
+
+    .product-card:hover .quick-view-btn {
+      opacity: 1;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      padding: 30px 0;
+      text-align: center;
+      color: white;
+      margin-top: 50px;
+      border-top: 5px solid #3498db;
+    }
+
+    footer p {
+      font-size: 14px;
+      color: #ecf0f1;
+      margin: 0;
+    }
+    
+    /* Cart button styles */
+    .cart-btn {
+      position: relative;
+      margin-left: 15px;
+      padding: 5px 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: #2c3e50;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .nav-item.cart-item {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Cart dropdown styles */
+    .cart-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 350px;
+      background-color: white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      z-index: 1000;
+      display: none;
+      border: 1px solid #ddd;
+    }
+
+    .cart-dropdown.show {
+      display: block;
+    }
+
+    .cart-dropdown h5 {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .cart-item-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .cart-item-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .cart-item-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 10px;
+      border: 1px solid #eee;
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+    }
+
+    .cart-item-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+      color: #2c3e50;
+    }
+
+    .cart-item-price {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .cart-item-quantity {
+      display: flex;
+      align-items: center;
+      background-color: #f8f9fa;
+      border-radius: 20px;
+      padding: 3px;
+    }
+
+    .cart-item-quantity button {
+      width: 25px;
+      height: 25px;
+      border: none;
+      background-color: #ecf0f1;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+
+    .cart-item-quantity button:hover {
+      background-color: #bdc3c7;
+      color: white;
+    }
+
+    .cart-item-quantity span {
+      margin: 0 8px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .cart-total {
+      font-weight: bold;
+      margin-top: 15px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+      color: #2c3e50;
+      font-size: 1.1rem;
+    }
+
+    .cart-actions {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .cart-actions .btn-clear {
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 4px;
+    }
+    
+    .cart-actions .btn-clear:hover {
+      background-color: #c0392b;
+    }
+
+    .cart-actions .btn {
+      padding: 8px 15px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    .cart-actions .btn-primary {
+      background-color: #3498db;
+      border-color: #3498db;
+    }
+    
+    .cart-actions .btn-primary:hover {
+      background-color: #2980b9;
+      border-color: #2980b9;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .product-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .cart-dropdown {
+        width: 280px;
+      }
+      
+      .search-box button {
+        padding: 0 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .product-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .page-header {
+        padding: 15px;
+      }
+    }
+
+    /* Search results message */
+    .search-results-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px;
+      font-size: 1.2rem;
+      color: #7f8c8d;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+    }
+    
+    /* Navbar styles */
+    .navbar {
+      background-color: white !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: #2c3e50 !important;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      color: #7f8c8d !important;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: #3498db !important;
+    }
+    
+    .navbar-toggler {
+      border: none;
+    }
+    
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+    .order-toggle-btn {
+    width: 80%;
+    transform: translate(30px, 0px);
+    border: none;
+    background-color: antiquewhite;
+    border-radius: 50px;
+    padding: 4%;
+    margin: 2%;
+}
+ /* Order form specific styles */
+ .order-toggle-btn {
+      margin-left: -2px;
+      width: 80%;
+      /* margin: 15px auto; */
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 500;
+      display: block;
+      transition: background-color 0.3s;
+    }
+
+    .order-toggle-btn:hover {
+      background-color: #2980b9;
+    }
+
+    .order-form {
+      display: none;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+      margin: 15px auto;
+      max-width: 500px;
+    }
+
+    .order-form label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .order-form input,
+    .order-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .order-form textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .order-form button[type="submit"] {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    .order-form button[type="submit"]:hover {
+      background-color: #27ae60;
+    }
+
+    .success-message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      text-align: center;
+      display: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+      .order-toggle-btn {
+        width: 90%;
+      }
+    }
+    /* Order History Styles */
+.order-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.order-header {
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-body {
+  padding: 15px;
+}
+
+.order-item {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.order-item-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 15px;
+  border: 1px solid #eee;
+}
+
+.order-item-details {
+  flex-grow: 1;
+}
+
+.order-item-title {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.order-item-price {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.order-item-quantity {
+  color: #7f8c8d;
+}
+
+.order-total {
+  font-weight: bold;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.order-date {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+.order-id {
+  font-weight: 500;
+  color: #2c3e50;
+}
+/* Quick View Modal Styles */
+.quick-view-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  overflow-y: auto;
+}
+
+.quick-view-content {
+  background-color: white;
+  margin: 50px auto;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-out;
+  position: relative;
+}
+
+.quick-view-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #7f8c8d;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.quick-view-close:hover {
+  color: #e74c3c;
+}
+
+.quick-view-body {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.quick-view-main {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.quick-view-gallery {
+  width: 50%;
+  padding-right: 20px;
+}
+
+.quick-view-main-image {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #f8f9fa;
+}
+
+.quick-view-thumbnails {
+  display: flex;
+  gap: 10px;
+}
+
+.quick-view-thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+}
+
+.quick-view-thumbnail:hover {
+  border-color: #3498db;
+}
+
+.quick-view-details {
+  width: 50%;
+  padding-left: 20px;
+}
+
+.quick-view-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.quick-view-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
+.quick-view-rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.quick-view-description {
+  margin-bottom: 20px;
+  color: #7f8c8d;
+  line-height: 1.6;
+}
+
+.quick-view-features {
+  margin-bottom: 20px;
+}
+
+.quick-view-features h4 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.quick-view-features ul {
+  padding-left: 20px;
+  color: #7f8c8d;
+}
+
+.quick-view-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.quick-view-btn-add {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.quick-view-btn-add:hover {
+  background-color: #27ae60;
+}
+
+.quick-view-btn-close {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.quick-view-btn-close:hover {
+  background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .quick-view-main {
+    flex-direction: column;
+  }
+  
+  .quick-view-gallery,
+  .quick-view-details {
+    width: 100%;
+    padding: 0;
+  }
+  
+  .quick-view-gallery {
+    margin-bottom: 20px;
+  }
+  
+  .quick-view-main-image {
+    height: 300px;
+  }
+}
+
+/* Additional product images for quick view */
+.product-images {
+  display: none;
+}
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">E-Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+          </div>
+          <li class="nav-item cart-item">
+            <button class="cart-btn" id="cartButton">
+              <i class="fas fa-shopping-cart fa-lg"></i>
+              <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <div class="cart-dropdown" id="cartDropdown">
+              <h5>Your Cart</h5>
+              <div class="cart-item-list" id="cartItemList">
+                <div class="text-center py-3" id="emptyCartMessage">Your cart is empty</div>
+              </div>
+              <div class="cart-total" id="cartTotal">
+                Total: $0.00
+              </div>
+              <div class="cart-actions">
+                <button class="btn btn-clear" id="clearCartBtn">Clear Cart</button>
+                <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+              </div>
+            </div>
+          </li>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="page-header">
+      <h1>Shop Our Products</h1>
+      <p>Browse through our amazing collection of products. Great deals await!</p>
+    </section>
+  <!--  <li class="nav-item"> -->
+      <a class="nav-link" href="#" id="orderHistoryLink" 
+         style="color: #040404; background-color: #98baf9; 
+                padding: 15px 30px; border-radius: 15px; 
+                font-size: 30px; font-weight: 500;
+                transition: all 0.3s ease; display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 0 15px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;">
+        <div>View Order History</div>
+      </a>
+    </li>
+    <div class="product-container" id="productContainer">
+      
+      <!-- Product 1 - Wireless Headphones -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wireless Headphones">
+        <div class="product-info">
+          <h3>Wireless Headphones</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(128)</span>
+          </div>
+          <p>Crystal-clear audio with noise cancellation. 30-hour battery life.</p>
+          <p class="price">$59.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="1" data-price="59.99" data-name="Wireless Headphones" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="1">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="1">-</button>
+            <span class="quantity-display" data-id="1">1</span>
+            <button class="quantity-btn increase-quantity" data-id="1">+</button>
+          </div>
+          <!-- Order form for Product 1 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Wireless Headphones" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 2 - Smart Watch -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Smart Watch">
+        <div class="product-info">
+          <h3>Smart Watch</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(95)</span>
+          </div>
+          <p>Track fitness, receive notifications, and monitor heart rate.</p>
+          <p class="price">$129.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="2" data-price="129.99" data-name="Smart Watch" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="2">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="2">-</button>
+            <span class="quantity-display" data-id="2">1</span>
+            <button class="quantity-btn increase-quantity" data-id="2">+</button>
+          </div>
+          <!-- Order form for Product 2 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 3 - Bluetooth Speaker -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Bluetooth Speaker">
+        <div class="product-info">
+          <h3>Bluetooth Speaker</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="rating-count">(214)</span>
+          </div>
+          <p>Portable speaker with 20W output and 12-hour battery life.</p>
+          <p class="price">$39.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="3" data-price="39.99" data-name="Bluetooth Speaker" data-image="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="3">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="3">-</button>
+            <span class="quantity-display" data-id="3">1</span>
+            <button class="quantity-btn increase-quantity" data-id="3">+</button>
+          </div>
+          <!-- Order form for Product 3 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 4 - Phone Stand -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Phone Stand">
+        <div class="product-info">
+          <h3>Phone Stand</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(87)</span>
+          </div>
+          <p>Adjustable stand for phones and tablets with wireless charging.</p>
+          <p class="price">$14.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="4" data-price="14.99" data-name="Phone Stand" data-image="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="4">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="4">-</button>
+            <span class="quantity-display" data-id="4">1</span>
+            <button class="quantity-btn increase-quantity" data-id="4">+</button>
+          </div>
+          <!-- Order form for Product 4 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 5 - Wireless Earbuds -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wireless Earbuds">
+        <div class="product-info">
+          <h3>Wireless Earbuds</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(156)</span>
+          </div>
+          <p>True wireless earbuds with 24-hour battery life and touch controls.</p>
+          <p class="price">$79.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="5" data-price="79.99" data-name="Wireless Earbuds" data-image="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="5">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="5">-</button>
+            <span class="quantity-display" data-id="5">1</span>
+            <button class="quantity-btn increase-quantity" data-id="5">+</button>
+          </div>
+          <!-- Order form for Product 5 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 6 - Portable Charger -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Portable Charger">
+        <div class="product-info">
+          <h3>Portable Charger</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(72)</span>
+          </div>
+          <p>10000mAh power bank with fast charging and dual USB ports.</p>
+          <p class="price">$29.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="6" data-price="29.99" data-name="Portable Charger" data-image="https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="6">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="6">-</button>
+            <span class="quantity-display" data-id="6">1</span>
+            <button class="quantity-btn increase-quantity" data-id="6">+</button>
+          </div>
+          <!-- Order form for Product 6 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 7 - Laptop Backpack -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Laptop Backpack">
+        <div class="product-info">
+          <h3>Laptop Backpack</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(189)</span>
+          </div>
+          <p>Water-resistant backpack with USB charging port and anti-theft design.</p>
+          <p class="price">$49.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="7" data-price="49.99" data-name="Laptop Backpack" data-image="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="7">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="7">-</button>
+            <span class="quantity-display" data-id="7">1</span>
+            <button class="quantity-btn increase-quantity" data-id="7">+</button>
+          </div>
+          <!-- Order form for Product 7 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 8 - Desk Lamp -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Desk Lamp">
+        <div class="product-info">
+          <h3>Desk Lamp</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(63)</span>
+          </div>
+          <p>Adjustable LED lamp with multiple brightness levels.</p>
+          <p class="price">$19.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="8" data-price="19.99" data-name="Desk Lamp" data-image="https://images.unsplash.com/photo-1580477667995-2b94f01c9516?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="8">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="8">-</button>
+            <span class="quantity-display" data-id="8">1</span>
+            <button class="quantity-btn increase-quantity" data-id="8">+</button>
+          </div>
+          <!-- Order form for Product 8-->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 9 - Wireless Keyboard -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wireless Keyboard">
+        <div class="product-info">
+          <h3>Wireless Keyboard</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(142)</span>
+          </div>
+          <p>Slim wireless keyboard with quiet keys and long battery life.</p>
+          <p class="price">$34.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="9" data-price="34.99" data-name="Wireless Keyboard" data-image="https://images.unsplash.com/photo-1587829741301-dc798b83add3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="9">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="9">-</button>
+            <span class="quantity-display" data-id="9">1</span>
+            <button class="quantity-btn increase-quantity" data-id="9">+</button>
+          </div>
+          <!-- Order form for Product 9 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 10 - Fitness Tracker -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fitness Tracker">
+        <div class="product-info">
+          <h3>Fitness Tracker</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(178)</span>
+          </div>
+          <p>Track steps, calories, sleep, and heart rate with this sleek device.</p>
+          <p class="price">$49.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="10" data-price="49.99" data-name="Fitness Tracker" data-image="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="10">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="10">-</button>
+            <span class="quantity-display" data-id="10">1</span>
+            <button class="quantity-btn increase-quantity" data-id="10">+</button>
+          </div>
+          <!-- Order form for Product 10 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 11 - External SSD -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="External SSD">
+        <div class="product-info">
+          <h3>External SSD (1TB)</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="rating-count">(231)</span>
+          </div>
+          <p>Ultra-fast external SSD with USB-C connectivity and rugged design.</p>
+          <p class="price">$129.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="11" data-price="129.99" data-name="External SSD (1TB)" data-image="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="11">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="11">-</button>
+            <span class="quantity-display" data-id="11">1</span>
+            <button class="quantity-btn increase-quantity" data-id="11">+</button>
+          </div>
+          <!-- Order form for Product 11-->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 12 - Ergonomic Mouse -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ergonomic Mouse">
+        <div class="product-info">
+          <h3>Ergonomic Mouse</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(87)</span>
+          </div>
+          <p>Comfortable vertical mouse designed to reduce wrist strain.</p>
+          <p class="price">$29.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="12" data-price="29.99" data-name="Ergonomic Mouse" data-image="https://images.unsplash.com/photo-1527814050087-3793815479db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="12">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="12">-</button>
+            <span class="quantity-display" data-id="12">1</span>
+            <button class="quantity-btn increase-quantity" data-id="12">+</button>
+          </div>
+      <!-- Order form for Product 12 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- Product 13 - Webcam -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="HD Webcam">
+        <div class="product-info">
+          <h3>HD Webcam</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(112)</span>
+          </div>
+          <p>1080p webcam with built-in microphone and auto light correction.</p>
+          <p class="price">$59.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="13" data-price="59.99" data-name="HD Webcam" data-image="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="13">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="13">-</button>
+            <span class="quantity-display" data-id="13">1</span>
+            <button class="quantity-btn increase-quantity" data-id="13">+</button>
+          </div>
+          <!-- Order form for Product 13 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 14 - Slim Fit Blazer -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Slim Fit Blazer">
+        <div class="product-info">
+          <h3>Slim Fit Blazer</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(142)</span>
+          </div>
+          <p>Modern slim-fit blazer with premium wool blend fabric for a sharp look.</p>
+          <p class="price">$129.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="14" data-price="129.99" data-name="Slim Fit Blazer" data-image="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="14">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="14">-</button>
+            <span class="quantity-display" data-id="14">1</span>
+            <button class="quantity-btn increase-quantity" data-id="14">+</button>
+          </div>
+          <!-- Order form for Product 14 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 15 - Cashmere Scarf -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cashmere Scarf">
+        <div class="product-info">
+          <h3>Cashmere Scarf</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(98)</span>
+          </div>
+          <p>Luxurious 100% cashmere scarf for winter warmth and style.</p>
+          <p class="price">$89.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="15" data-price="89.99" data-name="Cashmere Scarf" data-image="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="15">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="15">-</button>
+            <span class="quantity-display" data-id="15">1</span>
+            <button class="quantity-btn increase-quantity" data-id="15">+</button>
+          </div>
+          <!-- Order form for Product 15 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 16 - Leather Dress Shoes -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Dress Shoes">
+        <div class="product-info">
+          <h3>Hand Watch</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="rating-count">(187)</span>
+          </div>
+          <p>Elegant hand watch with a sleek stainless-steel case and minimalist dial for a timeless look.</p>
+          <p class="price">$159.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="16" data-price="159.99" data-name="Leather Dress Shoes" data-image="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="16">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="16">-</button>
+            <span class="quantity-display" data-id="16">1</span>
+            <button class="quantity-btn increase-quantity" data-id="16">+</button>
+          </div>
+          <!-- Order form for Product 16 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 17 - Denim Shirt -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Denim Shirt">
+        <div class="product-info">
+          <h3>Denim Shirt</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(76)</span>
+          </div>
+          <p>Classic denim shirt with button-down collar and chest pockets.</p>
+          <p class="price">$49.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="17" data-price="49.99" data-name="Denim Shirt" data-image="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="17">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="17">-</button>
+            <span class="quantity-display" data-id="17">1</span>
+            <button class="quantity-btn increase-quantity" data-id="17">+</button>
+          </div>
+          <!-- Order form for Product 17 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 18 - Wool Fedora Hat -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wool Fedora Hat">
+        <div class="product-info">
+          <h3>Wool Fedora Hat</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(63)</span>
+          </div>
+          <p>Stylish wool fedora hat with leather band for a classic look.</p>
+          <p class="price">$59.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="18" data-price="59.99" data-name="Wool Fedora Hat" data-image="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="18">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="18">-</button>
+            <span class="quantity-display" data-id="18">1</span>
+            <button class="quantity-btn increase-quantity" data-id="18">+</button>
+          </div>
+          <!-- Order form for Product 18 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 19 - Leather Belt -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Belt">
+        <div class="product-info">
+          <h3>Leather Belt</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(112)</span>
+          </div>
+          <p>Genuine leather belt with stainless steel buckle in various sizes.</p>
+          <p class="price">$39.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="19" data-price="39.99" data-name="Leather Belt" data-image="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="19">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="19">-</button>
+            <span class="quantity-display" data-id="19">1</span>
+            <button class="quantity-btn increase-quantity" data-id="19">+</button>
+          </div>
+          <!-- Order form for Product 19 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 20 - Chino Pants -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Chino Pants">
+        <div class="product-info">
+          <h3>Chino Pants</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(134)</span>
+          </div>
+          <p>Classic fit chino pants with stretch fabric for all-day comfort.</p>
+          <p class="price">$54.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="20" data-price="54.99" data-name="Chino Pants" data-image="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="20">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="20">-</button>
+            <span class="quantity-display" data-id="20">1</span>
+            <button class="quantity-btn increase-quantity" data-id="20">+</button>
+          </div>
+          <!-- Order form for Product 20 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 21 - Silk Pocket Square -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Silk Pocket Square">
+        <div class="product-info">
+          <h3>Silk Pocket Square</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(87)</span>
+          </div>
+          <p>Premium silk pocket square with elegant patterns for formal wear.</p>
+          <p class="price">$24.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="21" data-price="24.99" data-name="Silk Pocket Square" data-image="https://images.unsplash.com/photo-1548032885-b5e38734688a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="21">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="21">-</button>
+            <span class="quantity-display" data-id="21">1</span>
+            <button class="quantity-btn increase-quantity" data-id="21">+</button>
+          </div>
+          <!-- Order form for Product 21 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 22 - Leather Gloves -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Gloves">
+        <div class="product-info">
+          <h3>Leather Gloves</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <span class="rating-count">(92)</span>
+          </div>
+          <p>Premium leather gloves with cashmere lining for winter warmth.</p>
+          <p class="price">$69.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="22" data-price="69.99" data-name="Leather Gloves" data-image="https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="22">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="22">-</button>
+            <span class="quantity-display" data-id="22">1</span>
+            <button class="quantity-btn increase-quantity" data-id="22">+</button>
+          </div>
+          <!-- Order form for Product 22 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 23 - Linen Suit -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Linen Suit">
+        <div class="product-info">
+          <h3>Linen Suit</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="rating-count">(78)</span>
+          </div>
+          <p>Breathable linen suit perfect for summer weddings and events.</p>
+          <p class="price">$249.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="23" data-price="249.99" data-name="Linen Suit" data-image="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="23">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="23">-</button>
+            <span class="quantity-display" data-id="23">1</span>
+            <button class="quantity-btn increase-quantity" data-id="23">+</button>
+          </div>
+          <!-- Order form for Product 23 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+
+      <!-- New Product 24 - Wool Peacoat -->
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1463100099107-aa0980c362e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wool Peacoat">
+        <div class="product-info">
+          <h3>Canvas shoes</h3>
+          <div class="rating">
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="rating-count">(156)</span>
+          </div>
+          <p>"Lightweight canvas shoes with a breathable design, perfect for everyday casual wear."</p>
+          <p class="price">$199.99</p>
+          <button type="button" class="btn btn-add add-to-cart" data-id="24" data-price="199.99" data-name="Wool Peacoat" data-image="https://images.unsplash.com/photo-1463100099107-aa0980c362e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">Add to Cart</button>
+          <button type="button" class="btn btn-remove remove-from-cart" data-id="24">Remove</button>
+          <div class="quantity-controls">
+            <button class="quantity-btn decrease-quantity" data-id="24">-</button>
+            <span class="quantity-display" data-id="24">1</span>
+            <button class="quantity-btn increase-quantity" data-id="24">+</button>
+          </div>
+          <!-- Order form for Product 24 -->
+      <button class="order-toggle-btn">Order Now</button>
+      <form class="order-form">
+        <input type="hidden" name="product" value="Smart Watch" />
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" value="1" required>
+        <label>Full Name:</label>
+        <input type="text" name="fullname" required>
+        <label>Shipping Address:</label>
+        <textarea name="address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <button type="submit">Place Order</button>
+        <p class="success-message"></p>
+      </form>
+        </div>
+        <button class="quick-view-btn">Quick View</button>
+      </div>
+    </div>
+  </main>
+<!-- Order History Modal -->
+<div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="orderHistoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderHistoryModalLabel">Your Order History</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="noOrdersMessage" class="text-center py-4">
+          <i class="fas fa-box-open fa-3x mb-3 text-muted"></i>
+          <h5>No orders yet</h5>
+          <p class="text-muted">Your completed orders will appear here</p>
+        </div>
+        <div id="ordersList" class="d-none">
+          <!-- Orders will be displayed here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+      <a class="nav-link" href="#" id="orderHistoryLink" 
+         style="color: #ffffff; background-color: #bcc8df; 
+                padding: 15px 30px; border-radius: 15px; 
+                font-size: 30px; font-weight: 500;
+                transition: all 0.3s ease; gap:50px">
+        <div>View Order History</div>
+</a>
+  <footer>
+    <p>&copy; 2025 E-Shop. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cart functionality
+      let cart = [];
+      const cartButton = document.getElementById('cartButton');
+      const cartDropdown = document.getElementById('cartDropdown');
+      const cartCount = document.getElementById('cartCount');
+      const cartItemList = document.getElementById('cartItemList');
+      const emptyCartMessage = document.getElementById('emptyCartMessage');
+      const cartTotal = document.getElementById('cartTotal');
+      const clearCartBtn = document.getElementById('clearCartBtn');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const searchInput = document.getElementById('searchInput');
+      const productContainer = document.getElementById('productContainer');
+      
+      // Store references to all product cards
+      const allProductCards = Array.from(document.querySelectorAll('.product-card'));
+      
+      // Toggle cart dropdown
+      cartButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        cartDropdown.classList.toggle('show');
+      });
+
+      // Close cart dropdown when clicking outside
+      document.addEventListener('click', function() {
+        cartDropdown.classList.remove('show');
+      });
+
+      // Add to cart functionality
+      function handleAddToCart(event) {
+        const button = event.target;
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+        const image = button.getAttribute('data-image');
+        
+        // Check if item already exists in cart
+        const existingItem = cart.find(item => item.id === id);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id,
+            name,
+            price,
+            image,
+            quantity: 1
+          });
+        }
+        
+        updateCart();
+        updateProductButtons(id);
+      }
+
+      // Remove from cart functionality
+      function handleRemoveFromCart(event) {
+        const id = event.target.getAttribute('data-id');
+        cart = cart.filter(item => item.id !== id);
+        updateCart();
+        updateProductButtons(id);
+      }
+
+      // Quantity controls
+      function handleQuantityChange(event) {
+        const id = event.target.getAttribute('data-id');
+        const isIncrease = event.target.classList.contains('increase-quantity');
+        const item = cart.find(item => item.id === id);
+        
+        if (item) {
+          if (isIncrease) {
+            item.quantity += 1;
+          } else {
+            item.quantity -= 1;
+            if (item.quantity <= 0) {
+              cart = cart.filter(item => item.id !== id);
+            }
+          }
+          updateCart();
+          updateProductButtons(id);
+        }
+      }
+
+      // Clear cart
+      clearCartBtn.addEventListener('click', function() {
+        cart = [];
+        updateCart();
+        // Reset all product buttons
+        allProductCards.forEach(card => {
+          const id = card.querySelector('.add-to-cart').getAttribute('data-id');
+          updateProductButtons(id);
+        });
+      });
+
+      // Checkout
+      checkoutBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          alert('Your cart is empty!');
+        } else {
+          alert(`Thank you for your purchase! Total: $${calculateTotal().toFixed(2)}`);
+          cart = [];
+          updateCart();
+          // Reset all product buttons
+          allProductCards.forEach(card => {
+            const id = card.querySelector('.add-to-cart').getAttribute('data-id');
+            updateProductButtons(id);
+          });
+        }
+      });
+
+      // Update cart display
+      function updateCart() {
+        // Update cart count
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        
+        // Update cart items list
+        if (cart.length === 0) {
+          emptyCartMessage.style.display = 'block';
+          cartItemList.innerHTML = '';
+        } else {
+          emptyCartMessage.style.display = 'none';
+          cartItemList.innerHTML = cart.map(item => `
+            <div class="cart-item-row">
+              <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+              <div class="cart-item-details">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+              </div>
+              <div class="cart-item-quantity">
+                <button class="decrease-quantity" data-id="${item.id}">-</button>
+                <span>${item.quantity}</span>
+                <button class="increase-quantity" data-id="${item.id}">+</button>
+              </div>
+            </div>
+          `).join('');
+          
+          // Add event listeners to quantity buttons in cart
+          document.querySelectorAll('.cart-item-quantity .increase-quantity').forEach(button => {
+            button.addEventListener('click', handleQuantityChange);
+          });
+          
+          document.querySelectorAll('.cart-item-quantity .decrease-quantity').forEach(button => {
+            button.addEventListener('click', handleQuantityChange);
+          });
+        }
+        
+        // Update total
+        cartTotal.textContent = `Total: $${calculateTotal().toFixed(2)}`;
+      }
+
+      // Calculate total
+      function calculateTotal() {
+        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      }
+
+      // Update product buttons based on cart status
+      function updateProductButtons(id) {
+        const productCard = document.querySelector(`.product-card .add-to-cart[data-id="${id}"]`)?.closest('.product-card');
+        if (!productCard) return;
+        
+        const addButton = productCard.querySelector('.add-to-cart');
+        const removeButton = productCard.querySelector('.remove-from-cart');
+        const quantityControls = productCard.querySelector('.quantity-controls');
+        const quantityDisplay = productCard.querySelector('.quantity-display');
+        
+        const cartItem = cart.find(item => item.id === id);
+        
+        if (cartItem) {
+          addButton.style.display = 'none';
+          removeButton.style.display = 'block';
+          quantityControls.style.display = 'flex';
+          quantityDisplay.textContent = cartItem.quantity;
+        } else {
+          addButton.style.display = 'block';
+          removeButton.style.display = 'none';
+          quantityControls.style.display = 'none';
+        }
+      }
+
+      // Search functionality
+      function searchProducts() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let hasMatches = false;
+        
+        // Clear any previous search messages
+        const existingMessage = document.querySelector('.search-results-message');
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+        
+        // If search is empty, show all products
+        if (searchTerm === '') {
+          showAllProducts();
+          return;
+        }
+        
+        // Filter products
+        allProductCards.forEach(product => {
+          const productName = product.querySelector('h3').textContent.toLowerCase();
+          if (productName.includes(searchTerm)) {
+            product.style.display = '';
+            hasMatches = true;
+          } else {
+            product.style.display = 'none';
+          }
+        });
+        
+        // Show message if no matches
+        if (!hasMatches) {
+          const noResults = document.createElement('div');
+          noResults.className = 'search-results-message';
+          noResults.textContent = 'No products found matching your search.';
+          productContainer.appendChild(noResults);
+        }
+      }
+      
+      // Show all products (reset search)
+      function showAllProducts() {
+        allProductCards.forEach(product => {
+          product.style.display = '';
+        });
+        
+        // Remove any search message
+        const existingMessage = document.querySelector('.search-results-message');
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+      }
+      
+      // Initialize event listeners
+      function initializeEventListeners() {
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+          button.addEventListener('click', handleAddToCart);
+        });
+        
+        // Remove from cart buttons
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
+          button.addEventListener('click', handleRemoveFromCart);
+        });
+        
+        // Quantity controls
+        document.querySelectorAll('.increase-quantity, .decrease-quantity').forEach(button => {
+          button.addEventListener('click', handleQuantityChange);
+        });
+        
+        // Search button
+        document.querySelector('.search-box button').addEventListener('click', searchProducts);
+        
+        // Search on Enter key
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchProducts();
+          }
+        });
+      }
+      document.querySelectorAll('.order-toggle-btn').forEach(toggleBtn => {
+        toggleBtn.addEventListener('click', function() {
+          const orderForm = this.nextElementSibling;
+          const isVisible = orderForm.style.display === 'block';
+          
+          // Close all other forms first
+          document.querySelectorAll('.order-form').forEach(form => {
+            form.style.display = 'none';
+            form.previousElementSibling.textContent = 'Order Now';
+          });
+          
+          // Toggle this form
+          if (!isVisible) {
+            orderForm.style.display = 'block';
+            this.textContent = 'Cancel Order';
+            
+            // Hide any success messages when opening
+            const successMsg = orderForm.querySelector('.success-message');
+            if (successMsg) successMsg.style.display = 'none';
+          }
+        });
+      });
+
+      // Form submission
+      document.querySelectorAll('.order-form').forEach(form => {
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          
+          // Get form data
+          const product = this.querySelector('input[name="product"]').value;
+          const quantity = this.querySelector('input[name="quantity"]').value;
+          const name = this.querySelector('input[name="fullname"]').value;
+          const address = this.querySelector('textarea[name="address"]').value;
+          const email = this.querySelector('input[name="email"]').value;
+          
+          // Validate form
+          if (!name || !address || !email) {
+            alert('Please fill in all required fields');
+            return;
+          }
+          
+          // Show success message
+          const successMsg = this.querySelector('.success-message');
+          if (successMsg) {
+            successMsg.textContent = `Order confirmed! ${quantity} x ${product} will be shipped to ${name}. Confirmation sent to ${email}.`;
+            successMsg.style.display = 'block';
+          }
+          
+          // Reset form after 3 seconds
+          setTimeout(() => {
+            this.reset();
+            this.style.display = 'none';
+            this.previousElementSibling.textContent = 'Order Now';
+            if (successMsg) successMsg.style.display = 'none';
+          }, 3000);
+        });
+      });
+// Order history functionality
+let orders = JSON.parse(localStorage.getItem('orders')) || [];
+const orderHistoryLink = document.getElementById('orderHistoryLink');
+const orderHistoryModal = new bootstrap.Modal(document.getElementById('orderHistoryModal'));
+const noOrdersMessage = document.getElementById('noOrdersMessage');
+const ordersList = document.getElementById('ordersList');
+
+// Save order to history
+function saveOrder(orderData) {
+  const order = {
+    id: Date.now().toString(),
+    date: new Date().toLocaleString(),
+    items: [...cart],
+    total: calculateTotal(),
+    customer: {
+      name: orderData.fullname,
+      email: orderData.email,
+      address: orderData.address,
+      phone: orderData.phone
+    }
+  };
+  
+  orders.unshift(order); // Add to beginning of array
+  localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+// Display order history
+function displayOrderHistory() {
+  if (orders.length === 0) {
+    noOrdersMessage.classList.remove('d-none');
+    ordersList.classList.add('d-none');
+    return;
+  }
+  
+  noOrdersMessage.classList.add('d-none');
+  ordersList.classList.remove('d-none');
+  ordersList.innerHTML = '';
+  
+  orders.forEach(order => {
+    const orderElement = document.createElement('div');
+    orderElement.className = 'order-card mb-3';
+    orderElement.innerHTML = `
+      <div class="order-header">
+        <div>
+          <span class="order-id">Order #${order.id}</span>
+          <span class="order-date ms-2">${order.date}</span>
+        </div>
+        <div class="text-end">
+          <span class="badge bg-success">Completed</span>
+        </div>
+      </div>
+      <div class="order-body">
+        ${order.items.map(item => `
+          <div class="order-item">
+            <img src="${item.image}" alt="${item.name}" class="order-item-img">
+            <div class="order-item-details">
+              <div class="order-item-title">${item.name}</div>
+              <div class="order-item-price">$${item.price.toFixed(2)}</div>
+              <div class="order-item-quantity">Quantity: ${item.quantity}</div>
+            </div>
+          </div>
+        `).join('')}
+        <div class="order-total">
+          Total: $${order.total.toFixed(2)}
+        </div>
+        <div class="mt-3">
+          <h6>Shipping Information</h6>
+          <p class="mb-1">${order.customer.name}</p>
+          <p class="mb-1">${order.customer.address}</p>
+          <p class="mb-1">${order.customer.email}</p>
+          ${order.customer.phone ? `<p class="mb-0">${order.customer.phone}</p>` : ''}
+        </div>
+      </div>
+    `;
+    ordersList.appendChild(orderElement);
+  });
+}
+
+// Show order history when link is clicked
+orderHistoryLink.addEventListener('click', function(e) {
+  e.preventDefault();
+  displayOrderHistory();
+  orderHistoryModal.show();
+});
+
+// Update form submission to save orders
+document.querySelectorAll('.order-form').forEach(form => {
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Get form data
+    const formData = {
+      product: this.querySelector('input[name="product"]').value,
+      quantity: this.querySelector('input[name="quantity"]').value,
+      fullname: this.querySelector('input[name="fullname"]').value,
+      address: this.querySelector('textarea[name="address"]').value,
+      email: this.querySelector('input[name="email"]').value,
+      phone: this.querySelector('input[name="phone"]').value || ''
+    };
+    
+    // Validate form
+    if (!formData.fullname || !formData.address || !formData.email) {
+      alert('Please fill in all required fields');
+      return;
+    }
+    
+    // Save order to history
+    saveOrder(formData);
+    
+    // Show success message
+    const successMsg = this.querySelector('.success-message');
+    if (successMsg) {
+      successMsg.textContent = `Order confirmed! ${formData.quantity} x ${formData.product} will be shipped to ${formData.fullname}. Confirmation sent to ${formData.email}.`;
+      successMsg.style.display = 'block';
+    }
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      this.reset();
+      this.style.display = 'none';
+      this.previousElementSibling.textContent = 'Order Now';
+      if (successMsg) successMsg.style.display = 'none';
+    }, 3000);
+  });
+});
+// Checkout
+checkoutBtn.addEventListener('click', function() {
+  if (cart.length === 0) {
+    alert('Your cart is empty!');
+    return;
+  }
+  
+  // Create a simple order with minimal customer data
+  const order = {
+    id: Date.now().toString(),
+    date: new Date().toLocaleString(),
+    items: [...cart],
+    total: calculateTotal(),
+    customer: {
+      name: 'Guest Customer',
+      email: 'guest@example.com',
+      address: 'Not specified',
+      phone: ''
+    }
+  };
+  
+  orders.unshift(order);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  
+  alert(`Thank you for your purchase! Total: $${calculateTotal().toFixed(2)}`);
+  cart = [];
+  updateCart();
+  
+  // Reset all product buttons
+  allProductCards.forEach(card => {
+    const id = card.querySelector('.add-to-cart').getAttribute('data-id');
+    updateProductButtons(id);
+  });
+});
+      // Initialize the page
+      initializeEventListeners();
+      updateCart();
+    });
+  </script>
+</body>
+</html>

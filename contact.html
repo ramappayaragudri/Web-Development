@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - E-Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+    }
+    .contact-container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border: 2px solid #4682b4;
+      transition: all 0.3s ease;
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 30px;
+      background-color: #e6f2ff;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b0c4de;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-control {
+      border: 1px solid #87ceeb;
+      background-color: #f5faff;
+    }
+    .form-control:focus {
+      border-color: #4682b4;
+      background-color: #ffffff;
+    }
+    footer {
+      background-color: #4682b4;
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      border-top: 3px solid #1e5f8a;
+    }
+    
+    /* History Section Styles */
+    .history-section {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      display: none;
+    }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ced4da;
+    }
+    .history-item {
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-left: 4px solid #3498db;
+    }
+    .history-item-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .history-item-date {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    .history-item-rating {
+      display: flex;
+      align-items: center;
+    }
+    .history-item-rating .stars {
+      color: #f39c12;
+      margin-right: 5px;
+    }
+    .history-item-message {
+      margin-top: 10px;
+      color: #495057;
+    }
+    .no-history {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
+    }
+    
+    /* Toggle Button */
+    .toggle-history {
+      background-color: transparent;
+      border: none;
+      color: #3498db;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .toggle-history:hover {
+      text-decoration: underline;
+    }
+    
+    /* Existing styles remain the same */
+    .feedback-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #ff6b6b;
+      color: white;
+      border: 2px solid #ff4757;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    .feedback-btn:hover {
+      background-color: #ff4757;
+      transform: scale(1.1);
+    }
+    .thank-you-message {
+      display: none;
+      text-align: center;
+      padding: 30px;
+      background-color: #e8f8f5;
+      border-radius: 8px;
+      margin-top: 20px;
+      animation: fadeIn 1s ease-out;
+      border: 1px solid #76d7c4;
+    }
+    .thank-you-message i {
+      font-size: 50px;
+      color: #2ecc71;
+      margin-bottom: 20px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .visit-again {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #fff9e6;
+      border-radius: 8px;
+      text-align: center;
+      display: none;
+      border: 1px solid #ffeaa7;
+    }
+    .rating-container {
+      text-align: center;
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f5f6fa;
+      border-radius: 8px;
+      border: 1px solid #dcdde1;
+    }
+    .rating-title {
+      margin-bottom: 15px;
+      font-weight: 500;
+      color: #2f3640;
+    }
+    .rating {
+      display: inline-block;
+    }
+    .rating input {
+      display: none;
+    }
+    .rating label {
+      float: right;
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.3s;
+      font-size: 2rem;
+      padding: 0 5px;
+    }
+    .rating label:before {
+      content: '★';
+    }
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: #f39c12;
+    }
+    .rating-text {
+      margin-top: 10px;
+      font-weight: bold;
+      display: none;
+      color: #3498db;
+    }
+    .btn-primary {
+      background-color: #3498db;
+      border-color: #2980b9;
+    }
+    .btn-primary:hover {
+      background-color: #2980b9;
+      border-color: #2472a4;
+    }
+    .btn-outline-primary {
+      color: #3498db;
+      border-color: #3498db;
+    }
+    .btn-outline-primary:hover {
+      background-color: #3498db;
+      color: white;
+    }
+    .modal-content {
+      border: 2px solid #3498db;
+    }
+    .modal-header {
+      background-color: #e6f2ff;
+      border-bottom: 1px solid #b0c4de;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #4682b4; border-bottom: 2px solid #1e5f8a;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html" style="color: white;">E-Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" style="color: white;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html" style="color: white;">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="contact.html" style="color: white; font-weight: bold;">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="contact-container" id="contactForm">
+    <div class="contact-header">
+      <h1 style="color: #2c3e50;">Contact Us</h1>
+      <p style="color: #34495e;">Have questions? We'd love to hear from you!</p>
+    </div>
+    
+    <form id="contactFormElement">
+      <div class="form-group">
+        <label for="name" style="color: #2c3e50;">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="email" style="color: #2c3e50;">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Your email" required>
+      </div>
+      <div class="form-group">
+        <label for="message" style="color: #2c3e50;">Message</label>
+        <textarea class="form-control" id="message" rows="5" placeholder="Your message" required></textarea>
+      </div>
+      
+      <div class="rating-container">
+        <div class="rating-title">Rate your shopping experience:</div>
+        <div class="rating">
+          <input type="radio" id="star5" name="rating" value="5">
+          <label for="star5" title="Excellent"></label>
+          <input type="radio" id="star4" name="rating" value="4">
+          <label for="star4" title="Good"></label>
+          <input type="radio" id="star3" name="rating" value="3">
+          <label for="star3" title="Average"></label>
+          <input type="radio" id="star2" name="rating" value="2">
+          <label for="star2" title="Poor"></label>
+          <input type="radio" id="star1" name="rating" value="1">
+          <label for="star1" title="Terrible"></label>
+        </div>
+        <div class="rating-text" id="ratingText"></div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+    
+    <div class="thank-you-message" id="thankYouMessage">
+      <i class="fas fa-check-circle"></i>
+      <h2 style="color: #27ae60;">Thank You!</h2>
+      <p style="color: #2c3e50;">Your message has been sent successfully. We'll get back to you soon.</p>
+    </div>
+    
+    <div class="visit-again" id="visitAgain">
+      <h4 style="color: #e67e22;">Thank you for your feedback!</h4>
+      <p style="color: #2c3e50;">We hope to see you again soon. Check out our latest products:</p>
+      <a href="products.html" class="btn btn-outline-primary">Browse Products</a>
+      <button class="toggle-history mt-3" id="viewHistoryBtn">View your contact history</button>
+    </div>
+    
+    <!-- History Section -->
+    <div class="history-section" id="historySection">
+      <div class="history-header">
+        <h3 style="color: #2c3e50;">Your Contact History</h3>
+        <button class="toggle-history" id="hideHistoryBtn">Hide History</button>
+      </div>
+      <div id="historyItems">
+        <!-- History items will be added here dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Feedback Button -->
+  <button class="feedback-btn" id="feedbackBtn" title="Quick Feedback">
+    <i class="fas fa-comment-alt"></i>
+  </button>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Quick Feedback</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>How would you rate your shopping experience with us?</p>
+          <div class="rating mb-3">
+            <input type="radio" id="mstar5" name="modalRating" value="5">
+            <label for="mstar5" title="Excellent"></label>
+            <input type="radio" id="mstar4" name="modalRating" value="4">
+            <label for="mstar4" title="Good"></label>
+            <input type="radio" id="mstar3" name="modalRating" value="3">
+            <label for="mstar3" title="Average"></label>
+            <input type="radio" id="mstar2" name="modalRating" value="2">
+            <label for="mstar2" title="Poor"></label>
+            <input type="radio" id="mstar1" name="modalRating" value="1">
+            <label for="mstar1" title="Terrible"></label>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="quickFeedback" rows="3" placeholder="Any additional comments (optional)"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="submitQuickFeedback">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 E-Shop. All Rights Reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Form elements
+      const contactForm = document.getElementById('contactFormElement');
+      const thankYouMessage = document.getElementById('thankYouMessage');
+      const visitAgain = document.getElementById('visitAgain');
+      const historySection = document.getElementById('historySection');
+      const historyItems = document.getElementById('historyItems');
+      const viewHistoryBtn = document.getElementById('viewHistoryBtn');
+      const hideHistoryBtn = document.getElementById('hideHistoryBtn');
+      
+      // Rating elements
+      const ratingInputs = document.querySelectorAll('.rating input');
+      const ratingText = document.getElementById('ratingText');
+      
+      // Feedback modal elements
+      const feedbackBtn = document.getElementById('feedbackBtn');
+      const feedbackModal = new bootstrap.Modal(document.getElementById('feedbackModal'));
+      const submitQuickFeedback = document.getElementById('submitQuickFeedback');
+      
+      // Rating descriptions
+      const ratingDescriptions = {
+        1: "Terrible - We're sorry to hear that. We'll work to improve!",
+        2: "Poor - We appreciate your feedback and will do better.",
+        3: "Average - Thanks for your feedback. We'll aim to improve!",
+        4: "Good - We're glad you had a good experience!",
+        5: "Excellent - We're thrilled you loved your experience!"
+      };
+      
+      // Load contact history from localStorage
+      let contactHistory = JSON.parse(localStorage.getItem('contactHistory')) || [];
+      
+      // Display existing history
+      renderContactHistory();
+      
+      // Handle contact form submission
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+        const selectedRating = document.querySelector('input[name="rating"]:checked');
+        
+        // Validate rating is selected
+        if (!selectedRating) {
+          alert('Please rate your shopping experience before submitting');
+          return;
+        }
+        
+        // Create contact record
+        const contactRecord = {
+          id: Date.now(),
+          name: name,
+          email: email,
+          message: message,
+          rating: selectedRating.value,
+          date: new Date().toLocaleString()
+        };
+        
+        // Add to history
+        contactHistory.unshift(contactRecord); // Add to beginning of array
+        localStorage.setItem('contactHistory', JSON.stringify(contactHistory));
+        
+        // Show rating feedback
+        ratingText.textContent = ratingDescriptions[selectedRating.value];
+        ratingText.style.display = 'block';
+        
+        // Simulate form submission
+        setTimeout(function() {
+          contactForm.style.display = 'none';
+          thankYouMessage.style.display = 'block';
+          
+          // Show visit again section after a delay
+          setTimeout(function() {
+            visitAgain.style.display = 'block';
+            renderContactHistory();
+          }, 1500);
+        }, 1000);
+      });
+      
+      // Toggle history section
+      viewHistoryBtn.addEventListener('click', function() {
+        historySection.style.display = 'block';
+        viewHistoryBtn.style.display = 'none';
+      });
+      
+      hideHistoryBtn.addEventListener('click', function() {
+        historySection.style.display = 'none';
+        viewHistoryBtn.style.display = 'block';
+      });
+      
+      // Render contact history
+      function renderContactHistory() {
+        if (contactHistory.length === 0) {
+          historyItems.innerHTML = '<div class="no-history">No contact history found</div>';
+          return;
+        }
+        
+        historyItems.innerHTML = '';
+        
+        contactHistory.forEach(record => {
+          const historyItem = document.createElement('div');
+          historyItem.className = 'history-item';
+          
+          // Create stars based on rating
+          let stars = '';
+          for (let i = 0; i < 5; i++) {
+            stars += i < record.rating ? '★' : '☆';
+          }
+          
+          historyItem.innerHTML = `
+            <div class="history-item-header">
+              <strong>${record.name}</strong>
+              <span class="history-item-date">${record.date}</span>
+            </div>
+            <div class="history-item-rating">
+              <span class="stars">${stars}</span>
+              <span>${getRatingDescription(record.rating)}</span>
+            </div>
+            <div class="history-item-message">
+              <p>${record.message}</p>
+            </div>
+          `;
+          
+          historyItems.appendChild(historyItem);
+        });
+      }
+      
+      // Get rating description
+      function getRatingDescription(rating) {
+        return ratingDescriptions[rating] || '';
+      }
+      
+      // Rating hover effect
+      ratingInputs.forEach(input => {
+        input.addEventListener('mouseover', function() {
+          const ratingValue = this.value;
+          ratingText.textContent = ratingDescriptions[ratingValue];
+          ratingText.style.display = 'block';
+        });
+        
+        input.addEventListener('mouseout', function() {
+          const selectedRating = document.querySelector('input[name="rating"]:checked');
+          if (selectedRating) {
+            ratingText.textContent = ratingDescriptions[selectedRating.value];
+          } else {
+            ratingText.style.display = 'none';
+          }
+        });
+      });
+      
+      // Feedback button click handler
+      feedbackBtn.addEventListener('click', function() {
+        feedbackModal.show();
+      });
+      
+      // Submit quick feedback handler
+      submitQuickFeedback.addEventListener('click', function() {
+        const selectedRating = document.querySelector('input[name="modalRating"]:checked');
+        
+        if (!selectedRating) {
+          alert('Please select a rating');
+          return;
+        }
+        
+        const feedback = document.getElementById('quickFeedback').value;
+        
+        // Create feedback record
+        const feedbackRecord = {
+          id: Date.now(),
+          rating: selectedRating.value,
+          comments: feedback,
+          date: new Date().toLocaleString()
+        };
+        
+        // Add to history (you might want to store this separately)
+        console.log('Quick feedback submitted:', feedbackRecord);
+        
+        // Show confirmation and close modal
+        alert('Thank you for your feedback!');
+        feedbackModal.hide();
+      });
+    });
+  </script>
+</body>
+</html>
